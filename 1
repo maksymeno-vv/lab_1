@@ -1,0 +1,92 @@
+package com.company;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.text.ParseException;
+
+public class Main {
+// 6 - Створіть метод, який дозволяє порівняти 2 будь яких масиви int[] по складу.
+// Масиви можуть відрізнятися по порядку елементів , но бути однаковими зі складу.
+// Приклад- [1,4,7]==[4,7,1- еквівалентні.]
+    public static void compare(int[] arr1, int[] arr2){
+        int count = 0;
+        for (int i = 0; i<arr1.length;i++){
+            for (int j = 0; j<arr2.length;j++){
+                if (arr1[i]==arr2[j]){count++;break;}
+            }
+        }
+        if (count==arr1.length){
+            System.out.println("True");
+        }
+        else{
+            System.out.println("False");
+        }
+    }
+// 8 - Створіть метод, який підраховує кількість однакових чисел у будь якому масиві int[] .
+// Приклад [1,7,3,9,34,3,7] Результат :  1- 1раз, 7 - 2 рази,3-2 рази….
+    public static void twotask(int[] arr){
+        int count, count2;
+        for (int i = 0; i < arr.length; i++){
+            count = 0;
+            count2 = 0;
+            for (int j = 0; j <arr.length; j++){
+                for(int k = 0; k < i;k++){
+                    if(arr[k]==arr[i]){count2++;}
+                }
+                if(arr[i]==arr[j]){count++;}
+            }
+            if(count2==0){System.out.println(arr[i]+" - "+count);}
+        }
+    }
+
+    //19 - Створіть метод, який перевертає будь яке слово.
+    // Наприклад- на вході травень на виході ьневарт
+
+    public static void revers(String str){
+        char[] ch = str.toCharArray();
+        String str2 = "";
+        for (int i = ch.length - 1; i >= 0; i--) {
+            str2 = str2 + ch[i];
+        }
+        System.out.println(str2);
+    }
+
+    // 23 - Створіть метод, який рекурсивно рахує суму елементів масиву int[],
+    // який передається як параметр методу
+
+    public static int recurssum(int i,int[] arr){
+        if(i==(arr.length-1)){
+            return arr[i];
+        }
+        else{
+            return arr[i] + recurssum(i+1,arr);
+        }
+    }
+
+    // Створіть метод, який приймає параметр String у форматі "11.01.21" та повертає кількість діб з початку року до цієї дати.
+    // Ви повинні врахувати, що у лютому може бути різна кількість дат.
+
+    public static void datediffer(String str) throws  ParseException{
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy", Locale.ENGLISH);
+        Date date_1 = formatter.parse(str);
+        Date date_2 = formatter.parse("01.01.21");
+        date_2.setYear(date_1.getYear());
+        long differ = date_1.getTime() - date_2.getTime();
+        int daydiff = (int)(differ / (24 * 60 * 60 * 1000));
+        System.out.println(daydiff+" days");
+    }
+
+    public static void main(String[] args) throws ParseException
+    {
+        int[] arr_1 = {2,5,7,5,3,2,5,7};
+        int[] arr_2 = {3,5,7,6,8,2,1,7};
+
+        compare(arr_1, arr_2);
+        String str = "Реверс";
+        twotask(arr_1);
+        revers(str);
+        System.out.println(recurssum(0,arr_1));
+        datediffer("15.05.21");
+    }
+}
